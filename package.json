@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "react": "^15.0.2",
-    "react-dom": "^15.0.2"
+    "react-dom": "^15.0.2",
+    "react-select": "^1.0.0-beta13"
   },
   "devDependencies": {
     "nwb": "0.10.x"

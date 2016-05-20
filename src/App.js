@@ -1,18 +1,36 @@
 import React from 'react'
+import Select from 'react-select'
 
 export default class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            selectedOption: "",
+            options: [
+                { value: 'one', label: 'One' },
+                { value: 'two', label: 'Two' }
+            ]
+        };
+        this.handleChange = this.handleChange.bind(this);
+    }
 
-  constructor(){
-    super();
-    this.state = {name: "Lukas"};
-  }
+    handleChange(option) {
+        var  value  = option.value
+        this.setState({ selectedOption: value });
+    }
 
-  render(){
-      setTimeout(() => {
-        this.setState({name: "Jenny"});
-      }, 3000);
-    return (
-        <h1>hello world, I am {this.state.name}</h1>
-    );
-  }
+    render() {
+
+        const selectStyle = {
+            width: "300px"
+
+        }
+
+        return(
+            <div>
+                <h1>Hello World</h1>
+                <Select style={selectStyle} options={this.state.options} value={this.state.selectedOption} onChange={this.handleChange}/>
+            </div>
+        );
+    }
 }
