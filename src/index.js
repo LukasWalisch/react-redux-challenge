@@ -1,6 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import App from './components/App'
+import { Provider } from 'react-redux'
+import configureStore from './redux/store'
 
-import App from './App'
+var store = configureStore();
 
-ReactDOM.render(<App/>, document.querySelector('#app'));
+ReactDOM.render(
+    <Provider store={store}>
+        <App/>
+    </Provider>, document.querySelector('#app'));

@@ -13,7 +13,12 @@
   "dependencies": {
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
-    "react-select": "^1.0.0-beta13"
+    "react-redux": "^4.4.5",
+    "react-select": "^1.0.0-beta13",
+    "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0",
+    "reselect": "^2.5.1"
   },
   "devDependencies": {
     "nwb": "0.10.x"
