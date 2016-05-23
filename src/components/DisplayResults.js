@@ -4,23 +4,40 @@
 
 import React from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
 class DisplayResults extends React.Component {
 
     getClicks(){
-        var index = this.props.selectedOption;
-        if (index === "" || index == null)
+        var id = this.props.selectedOption;
+        if (id === "" || id == null)
             return "-";
-        else
-            return this.props.dataObjects[index].clicks;
+        else{
+            var clicks = 0;
+            _.forEach(this.props.dataObjects, function(o){
+                if (o.id === id){
+                    clicks = o.clicks;
+                }
+            });
+            return clicks;
+        }
     }
 
     getImpressions(){
-        var index = this.props.selectedOption;
-        if (index === "" || index == null)
+        var id = this.props.selectedOption;
+        if (id === "" || id == null)
             return "-";
-        else
-            return this.props.dataObjects[index].impressions;
+        else{
+            var impressions = 0;
+            _.forEach(this.props.dataObjects, function(o){
+                if (o.id === id){
+                    impressions = o.impressions;
+                }
+            });
+            return impressions;
+        }
+            
+            
     }
 
     render(){

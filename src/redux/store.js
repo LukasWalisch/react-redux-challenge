@@ -12,7 +12,7 @@ var configureStore = function () {
 
     var initialState = {
         selectedOption: "",
-        dataObjects: readData()
+        dataObjects: readData(),
     };
 
     var store = createStore(reducer, initialState, applyMiddleware(thunk, logger()));

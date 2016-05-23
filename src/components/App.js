@@ -7,6 +7,7 @@ import DisplayResults from './DisplayResults'
 class App extends React.Component {
 
     handleChange(option) {
+        debugger;
         this.props.dispatch(actions.changeSelectValue(option.value));
     }
 
@@ -16,7 +17,7 @@ class App extends React.Component {
         for (var i = 0; i < length; ++i){
             optionArray.push({
                 value: this.props.dataObjects[i].id,
-                label: this.props.dataObjects[i].campain
+                label: this.props.dataObjects[i].label
             })
         }
         return optionArray;
