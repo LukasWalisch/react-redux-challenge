@@ -54,8 +54,9 @@ var divStyle = {
     border: "1px solid black",
     display: "inline-block",
     float: "left",
-    margin: "5px",
-    width: "130px"
+    marginTop: "5px",
+    marginRight: "5px",
+    width: "200px"
 };
 
 function mapStateToProps(state){

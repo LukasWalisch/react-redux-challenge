@@ -3,11 +3,11 @@ import Select from 'react-select'
 import { connect } from 'react-redux'
 import actions from '../redux/actions'
 import DisplayResults from './DisplayResults'
+import 'react-select/dist/react-select.css'
 
 class App extends React.Component {
 
     handleChange(option) {
-        debugger;
         this.props.dispatch(actions.changeSelectValue(option.value));
     }
 
@@ -33,7 +33,7 @@ class App extends React.Component {
     
     render() {
         return(
-            <div>
+            <div style={divStyle}>
                 <h1>Hello World</h1>
                 <Select options={this.getOptions()} value={this.props.selectedOption} onChange={this.handleChange.bind(this)}/>
                 <DisplayResults/>
@@ -41,6 +41,13 @@ class App extends React.Component {
         );
     }
 }
+
+var divStyle = {
+    border: "1px solid black",
+    display: "inline-block",
+    padding: "5px",
+    width: "500px"
+};
 
 function mapStateToProps(state) {
     return {
