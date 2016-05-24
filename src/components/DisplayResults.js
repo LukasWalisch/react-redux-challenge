@@ -5,6 +5,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import _ from 'lodash'
+import { getSelectedClicks } from '../redux/selectors'
 
 class DisplayResults extends React.Component {
 
@@ -43,8 +44,7 @@ class DisplayResults extends React.Component {
     render(){
         return(
             <div>
-                <div style={divStyle}>Clicks: {this.getClicks()}</div>
-                <div style={divStyle}>Impresssions: {this.getImpressions()}</div>
+                <div style={divStyle}>Clicks: {this.props.clicks}</div>
             </div>
         )
     }
@@ -61,8 +61,7 @@ var divStyle = {
 
 function mapStateToProps(state){
     return {
-        dataObjects: state.dataObjects,
-        selectedOption: state.selectedOption
+        clicks: getSelectedClicks(state)
     }
 }
 

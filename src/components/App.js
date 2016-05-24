@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import actions from '../redux/actions'
 import DisplayResults from './DisplayResults'
 import 'react-select/dist/react-select.css'
+import { getOptionsForSelect } from '../redux/selectors'
 
 class App extends React.Component {
 
@@ -35,7 +36,7 @@ class App extends React.Component {
         return(
             <div style={divStyle}>
                 <h1>Hello World</h1>
-                <Select options={this.getOptions()} value={this.props.selectedOption} onChange={this.handleChange.bind(this)}/>
+                <Select options={this.props.options} value={this.props.selectedOption} onChange={this.handleChange.bind(this)}/>
                 <DisplayResults/>
             </div>
         );
@@ -52,7 +53,7 @@ var divStyle = {
 function mapStateToProps(state) {
     return {
         selectedOption: state.selectedOption,
-        dataObjects: state.dataObjects
+        options: getOptionsForSelect(state)
     };
 }
 
