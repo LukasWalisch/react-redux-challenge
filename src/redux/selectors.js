@@ -3,7 +3,7 @@
  */
 
 import {createSelector} from 'reselect'
-import { filter, reduce, forEach, } from 'lodash'
+import {filter, reduce, forEach,} from 'lodash'
 
 const getSelectedOption = (state) => state.selectedOption;
 const getDataObjects = (state) => state.dataObjects;
@@ -11,46 +11,34 @@ const getDataObjects = (state) => state.dataObjects;
 export const getSelectedClicks = createSelector([getSelectedOption, getDataObjects],
     function (selectedOption, dataObjects) {
 
+        let filteredObjects = [];
         //a # at the last position of selectedOption string indicates that the current selectedOption is a channel
         if (selectedOption.charAt(selectedOption.length - 1) === '#') {
 
             const channel = selectedOption.substr(0, selectedOption.length - 1);
-            const filteredObjectsByChannel = filter(dataObjects,
+            filteredObjects = filter(dataObjects,
                 function (o) {
-                    if (o.channel === channel)
-                        return true;
-                    else
-                        return false;
+                    return (o.channel === channel);
                 });
-
-            //sums up the clicks of the filteredObjectsByChannel
-            return reduce(filteredObjectsByChannel,
-                function (sum, o) {
-                    return sum + parseInt(o.clicks);
-                }, 0);
-
         }
         else {
             // filters all objects with the current selectedOption
-            const filteredObjectsByCampaign = filter(dataObjects,
+            filteredObjects = filter(dataObjects,
                 function (o) {
-                    if (o.campaign === selectedOption)
-                        return true;
-                    else
-                        return false;
+                    return (o.campaign === selectedOption);
                 });
-
-            //sums up the clicks of the filteredObjectsByCampaign
-            const clicksSum = reduce(filteredObjectsByCampaign,
-                function (sum, o) {
-                    return sum + parseInt(o.clicks);
-                }, 0);
-            return clicksSum;
         }
 
+        let sumClicksImpressions = {clicks: 0, impressions: 0};
 
+        //sums up the clicks and impressions of the filteredObjects
+        for (let object of filteredObjects) {
+            sumClicksImpressions.clicks += parseInt(object.clicks);
+            sumClicksImpressions.impressions += parseInt(object.impressions);
+        }
+        
+        return sumClicksImpressions;
     });
-
 
 export const getOptionsForSelect = createSelector([getDataObjects],
     function (dataObjects) {
@@ -78,10 +66,9 @@ export const getOptionsForSelect = createSelector([getDataObjects],
         return options;
     });
 
-
 function objectArrayContains(inputArray, searchTerm, property) {
-    for(var i = 0, len = inputArray.length; i < len; i++){
-        if (inputArray[i][property] === searchTerm){
+    for (var i = 0, len = inputArray.length; i < len; i++) {
+        if (inputArray[i][property] === searchTerm) {
             return true;
         }
     }

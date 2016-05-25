@@ -3,48 +3,13 @@
  */
 
 import React from 'react'
-import { connect } from 'react-redux'
-import _ from 'lodash'
-import { getSelectedClicks } from '../redux/selectors'
 
 class DisplayResults extends React.Component {
-
-    getClicks(){
-        var id = this.props.selectedOption;
-        if (id === "" || id == null)
-            return "-";
-        else{
-            var clicks = 0;
-            _.forEach(this.props.dataObjects, function(o){
-                if (o.id === id){
-                    clicks = o.clicks;
-                }
-            });
-            return clicks;
-        }
-    }
-
-    getImpressions(){
-        var id = this.props.selectedOption;
-        if (id === "" || id == null)
-            return "-";
-        else{
-            var impressions = 0;
-            _.forEach(this.props.dataObjects, function(o){
-                if (o.id === id){
-                    impressions = o.impressions;
-                }
-            });
-            return impressions;
-        }
-            
-            
-    }
 
     render(){
         return(
             <div>
-                <div style={divStyle}>Clicks: {this.props.clicks}</div>
+                <div style={divStyle}>{this.props.label} {this.props.value}</div>
             </div>
         )
     }
@@ -59,12 +24,6 @@ var divStyle = {
     width: "200px"
 };
 
-function mapStateToProps(state){
-    return {
-        clicks: getSelectedClicks(state)
-    }
-}
-
-export default connect(mapStateToProps)(DisplayResults)
+export default DisplayResults
 
 

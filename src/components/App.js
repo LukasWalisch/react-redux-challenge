@@ -4,40 +4,21 @@ import { connect } from 'react-redux'
 import actions from '../redux/actions'
 import DisplayResults from './DisplayResults'
 import 'react-select/dist/react-select.css'
-import { getOptionsForSelect } from '../redux/selectors'
+import { getOptionsForSelect, getSelectedClicks } from '../redux/selectors'
 
 class App extends React.Component {
 
     handleChange(option) {
         this.props.dispatch(actions.changeSelectValue(option.value));
     }
-
-    getOptions(){
-        var optionArray = [];
-        var length = this.props.dataObjects.length;
-        for (var i = 0; i < length; ++i){
-            optionArray.push({
-                value: this.props.dataObjects[i].id,
-                label: this.props.dataObjects[i].label
-            })
-        }
-        return optionArray;
-    }
-
-    getImpressions(){
-        var index = this.props.selectedOption;
-        if (index === "")
-            return "-";
-        else
-            return this.props.dataObjects[index].impressions;
-    }
     
     render() {
         return(
             <div style={divStyle}>
-                <h1>Hello World</h1>
+                <h1>Programming Challenge</h1>
                 <Select options={this.props.options} value={this.props.selectedOption} onChange={this.handleChange.bind(this)}/>
-                <DisplayResults/>
+                <DisplayResults label="clicks: " value={this.props.sumClicksImpressions.clicks}/>
+                <DisplayResults label="impressions: " value={this.props.sumClicksImpressions.impressions}/>
             </div>
         );
     }
@@ -53,7 +34,8 @@ var divStyle = {
 function mapStateToProps(state) {
     return {
         selectedOption: state.selectedOption,
-        options: getOptionsForSelect(state)
+        options: getOptionsForSelect(state),
+        sumClicksImpressions: getSelectedClicks(state)
     };
 }
 

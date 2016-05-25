@@ -15,7 +15,7 @@ var configureStore = function () {
         dataObjects: readData(),
     };
 
-    var store = createStore(reducer, initialState, applyMiddleware(thunk, logger()));
+    const store = createStore(reducer, initialState, applyMiddleware(thunk, logger()));
     return store;
 }
 
