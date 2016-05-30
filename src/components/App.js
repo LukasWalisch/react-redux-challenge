@@ -2,9 +2,9 @@ import React from 'react'
 import Select from 'react-select'
 import { connect } from 'react-redux'
 import actions from '../redux/actions'
-import DisplayResults from './DisplayResults'
+import DisplayResults from './Result'
 import 'react-select/dist/react-select.css'
-import { getOptionsForSelect, getSelectedClicks } from '../redux/selectors'
+import { getOptionsForSelect, getResult } from '../redux/selectors'
 
 class App extends React.Component {
 
@@ -35,7 +35,7 @@ function mapStateToProps(state) {
     return {
         selectedOption: state.selectedOption,
         options: getOptionsForSelect(state),
-        sumClicksImpressions: getSelectedClicks(state)
+        sumClicksImpressions: getResult(state)
     };
 }
 

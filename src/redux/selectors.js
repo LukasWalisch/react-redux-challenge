@@ -8,7 +8,7 @@ import {filter, reduce, forEach,} from 'lodash'
 const getSelectedOption = (state) => state.selectedOption;
 const getDataObjects = (state) => state.dataObjects;
 
-export const getSelectedClicks = createSelector([getSelectedOption, getDataObjects],
+export const getResult = createSelector([getSelectedOption, getDataObjects],
     function (selectedOption, dataObjects) {
 
         let filteredObjects = [];
@@ -29,15 +29,15 @@ export const getSelectedClicks = createSelector([getSelectedOption, getDataObjec
                 });
         }
 
-        let sumClicksImpressions = {clicks: 0, impressions: 0};
+        let result = {clicks: 0, impressions: 0};
 
         //sums up the clicks and impressions of the filteredObjects
         for (let object of filteredObjects) {
-            sumClicksImpressions.clicks += parseInt(object.clicks);
-            sumClicksImpressions.impressions += parseInt(object.impressions);
+            result.clicks += parseInt(object.clicks);
+            result.impressions += parseInt(object.impressions);
         }
         
-        return sumClicksImpressions;
+        return result;
     });
 
 export const getOptionsForSelect = createSelector([getDataObjects],
@@ -51,7 +51,6 @@ export const getOptionsForSelect = createSelector([getDataObjects],
             if (!objectArrayContains(options, o.campaign, "label")) {
                 options.push({label: o.campaign, value: o.campaign});
             }
-
 
             //if the channels array already contains the label, it is not added
             if (!objectArrayContains(channels, o.channel, "label")) {

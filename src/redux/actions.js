@@ -8,16 +8,6 @@
             selectedOption: selectedOption
         }
     },
-    
-    //nur zum experimentieren
-    changeSelectValueAsync: function (selectedOption) {
-        return (dispatch) => {
-            setTimeout(() => {
-                dispatch(actions.changeSelectValue(selectedOption));
-            },2000);
-        }
-
-    }
 };
 
 export default actions
