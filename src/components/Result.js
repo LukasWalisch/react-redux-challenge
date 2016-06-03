@@ -4,7 +4,7 @@
 
 import React from 'react'
 
-class DisplayResults extends React.Component {
+class Result extends React.Component {
 
     render(){
         return(
@@ -24,6 +24,6 @@ var divStyle = {
     width: "200px"
 };
 
-export default DisplayResults
+export default Result
 
 

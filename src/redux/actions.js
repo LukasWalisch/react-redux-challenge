@@ -7,7 +7,7 @@
             type: 'CHANGE_SELECTED_VALUE',
             selectedOption: selectedOption
         }
-    },
+    }
 };
 
 export default actions

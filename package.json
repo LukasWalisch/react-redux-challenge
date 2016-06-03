@@ -11,6 +11,7 @@
     "test:watch": "nwb test --server"
   },
   "dependencies": {
+    "chai-things": "^0.2.0",
     "lodash": "^4.13.0",
     "react": "^15.0.2",
     "react-dom": "^15.0.2",
@@ -22,6 +23,8 @@
     "reselect": "^2.5.1"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3",
     "nwb": "0.10.x"
   },
   "author": "",

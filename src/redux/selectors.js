@@ -3,7 +3,8 @@
  */
 
 import {createSelector} from 'reselect'
-import {filter, reduce, forEach,} from 'lodash'
+import {filter, reduce} from 'lodash'
+import Option from '../model/Option'
 
 const getSelectedOption = (state) => state.selectedOption;
 const getDataObjects = (state) => state.dataObjects;
@@ -11,23 +12,17 @@ const getDataObjects = (state) => state.dataObjects;
 export const getResult = createSelector([getSelectedOption, getDataObjects],
     function (selectedOption, dataObjects) {
 
-        let filteredObjects = [];
-        //a # at the last position of selectedOption string indicates that the current selectedOption is a channel
-        if (selectedOption.charAt(selectedOption.length - 1) === '#') {
+        if (selectedOption === "")
+            return {clicks: 0, impressions: 0};
 
-            const channel = selectedOption.substr(0, selectedOption.length - 1);
-            filteredObjects = filter(dataObjects,
-                function (o) {
-                    return (o.channel === channel);
-                });
-        }
-        else {
-            // filters all objects with the current selectedOption
-            filteredObjects = filter(dataObjects,
-                function (o) {
-                    return (o.campaign === selectedOption);
-                });
-        }
+        // selectedOption is in the format type::value, e.g. channel::display or campaign::someCampaign
+        const selectedType = selectedOption.split('::')[0];
+        const selectedValue = selectedOption.split('::')[1];
+
+        // filters all objects with the current selectedType and selectedValue
+        const filteredObjects = filter(dataObjects, function (o) {
+            return (o[selectedType] === selectedValue);
+        });
 
         let result = {clicks: 0, impressions: 0};
 
@@ -36,7 +31,6 @@ export const getResult = createSelector([getSelectedOption, getDataObjects],
             result.clicks += parseInt(object.clicks);
             result.impressions += parseInt(object.impressions);
         }
-        
         return result;
     });
 
@@ -46,18 +40,17 @@ export const getOptionsForSelect = createSelector([getDataObjects],
         let options = [];
         let channels = [];
 
-        forEach(dataObjects, function (o) {
+        for (let object of dataObjects) {
             //if the options array already contains the label, it is not added
-            if (!objectArrayContains(options, o.campaign, "label")) {
-                options.push({label: o.campaign, value: o.campaign});
+            if (!objectArrayContains(options, object.campaign, "label")) {
+                options.push(new Option(object.campaign, 'campaign::' + object.campaign));
             }
 
             //if the channels array already contains the label, it is not added
-            if (!objectArrayContains(channels, o.channel, "label")) {
-                channels.push({label: o.channel, value: o.channel + '#'});
+            if (!objectArrayContains(channels, object.channel, "label")) {
+                channels.push(new Option(object.channel, 'channel::' + object.channel));
             }
-
-        });
+        }
 
         //add channels at the end of options
         options = options.concat(channels);
