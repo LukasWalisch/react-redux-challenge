@@ -26,8 +26,4 @@ const readData = function(){
     return rawDataObjects;
 };
 
-//TODO: seperate in model directory as model class
-
-
-
 export default readData
