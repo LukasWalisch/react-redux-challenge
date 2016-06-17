@@ -1,6 +1,7 @@
 import { assert } from 'chai'
 import { getOptionsForSelect, getResult } from '../src/redux/selectors'
 import RawDataObject from '../src/model/RawDataObject'
+import 'babel-polyfill'
 
 
 describe('Selectors', function () {
@@ -25,7 +26,7 @@ describe('Selectors', function () {
 
         let result;
 
-        state.selectedOption = "Campaign1";
+        state.selectedOption = options[0].value;
         result = getResult(state);
         assert.deepEqual(result, {clicks: 250, impressions: 2500});
         
